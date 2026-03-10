@@ -14,7 +14,110 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      gym_classes: {
+        Row: {
+          class_type: string
+          created_at: string
+          day_of_week: number
+          description: string | null
+          end_time: string
+          id: string
+          instructor: string
+          max_capacity: number
+          name: string
+          start_time: string
+        }
+        Insert: {
+          class_type?: string
+          created_at?: string
+          day_of_week: number
+          description?: string | null
+          end_time: string
+          id?: string
+          instructor: string
+          max_capacity?: number
+          name: string
+          start_time: string
+        }
+        Update: {
+          class_type?: string
+          created_at?: string
+          day_of_week?: number
+          description?: string | null
+          end_time?: string
+          id?: string
+          instructor?: string
+          max_capacity?: number
+          name?: string
+          start_time?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reservations: {
+        Row: {
+          class_id: string
+          created_at: string
+          id: string
+          reservation_date: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          class_id: string
+          created_at?: string
+          id?: string
+          reservation_date: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          class_id?: string
+          created_at?: string
+          id?: string
+          reservation_date?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "gym_classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
