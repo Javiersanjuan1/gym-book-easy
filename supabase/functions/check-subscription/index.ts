@@ -54,8 +54,16 @@ serve(async (req) => {
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
-      subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
-      productId = subscription.items.data[0].price.product;
+      const periodEnd = subscription.current_period_end;
+      if (periodEnd) {
+        // Handle both unix timestamp (number) and ISO string
+        if (typeof periodEnd === "number") {
+          subscriptionEnd = new Date(periodEnd * 1000).toISOString();
+        } else {
+          subscriptionEnd = String(periodEnd);
+        }
+      }
+      productId = subscription.items.data[0]?.price?.product ?? null;
     }
 
     return new Response(JSON.stringify({
